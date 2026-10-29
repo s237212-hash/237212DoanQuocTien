@@ -1,24 +1,27 @@
-services:
-  - type: web
-    name: api-237212
-    runtime: node
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /health
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: MONGODB_URI
-        sync: false
-      - key: CLIENT_ORIGIN
-        sync: false
-  - type: web
-    name: web-237212
-    runtime: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    envVars:
-      - key: VITE_API_URL
-        sync: false
+projects:
+  - name: 237212DoanQuocTien
+    environments:
+      - name: production
+        services:
+          - type: web
+            name: api-237212
+            runtime: node
+            plan: free
+            rootDir: backend
+            buildCommand: npm install
+            startCommand: npm start
+            healthCheckPath: /health
+            envVars:
+              - key: NODE_ENV
+                value: production
+              - key: CLIENT_ORIGIN
+                value: https://web-237212.onrender.com
+          - type: web
+            name: web-237212
+            runtime: static
+            rootDir: frontend
+            buildCommand: npm install && npm run build
+            staticPublishPath: ./dist
+            envVars:
+              - key: VITE_API_URL
+                value: https://api-237212.onrender.com

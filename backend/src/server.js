@@ -59,8 +59,13 @@ app.use((err, _req, res, _next) => {
 
 const port = Number(process.env.PORT) || 5000;
 async function start() {
-  if (!process.env.MONGODB_URI) throw new Error('MONGODB_URI chưa được cấu hình.');
-  await mongoose.connect(process.env.MONGODB_URI, { dbName: '237212DoanQuocTien', serverSelectionTimeoutMS: 10000 });
   app.listen(port, '0.0.0.0', () => console.log(`API đang chạy tại cổng ${port}`));
+  if (!process.env.MONGODB_URI) {
+    console.warn('MONGODB_URI chưa được cấu hình; API đang chạy nhưng chưa kết nối cơ sở dữ liệu.');
+    return;
+  }
+  mongoose.connect(process.env.MONGODB_URI, { dbName: '237212DoanQuocTien', serverSelectionTimeoutMS: 10000 })
+    .then(() => console.log('Đã kết nối MongoDB Atlas.'))
+    .catch((err) => console.error('Không thể kết nối MongoDB Atlas:', err.message));
 }
-start().catch((err) => { console.error('Không thể khởi động API:', err.message); process.exit(1); });
+start();
