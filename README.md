@@ -77,6 +77,10 @@ docker run --rm -p 8080:80 237212doanquoctien/frontend
 ```
 Đăng nhập Docker Hub trên máy của bạn rồi push hai image bằng `docker push 237212doanquoctien/backend` và `docker push 237212doanquoctien/frontend`. Cần tài khoản Docker Hub `237212doanquoctien` hoặc đổi namespace thành tài khoản thực tế của bạn.
 
+### Tự động build và push qua GitHub Actions
+
+Workflow `.github/workflows/docker-publish.yml` build và push cả hai image khi có commit lên `main`. Trong Settings → Secrets and variables → Actions, tạo secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN` (access token Docker Hub), cùng variable `VITE_API_URL` trỏ đến API Render. Nếu không khai báo variable, workflow dùng URL API dự kiến ở trên. Không dùng mật khẩu Docker Hub thường hoặc đưa token vào file.
+
 ## Triển khai Render
 `render.yaml` mô tả backend Node và frontend static. Khi tạo Blueprint:
 1. Backend: đặt `MONGODB_URI` thành secret trong Render; đặt `CLIENT_ORIGIN` thành URL frontend HTTPS.
