@@ -98,4 +98,4 @@ Kiểm tra API: `https://two37212doanquoctien.onrender.com/health`. Frontend: `h
 Ảnh món ăn được lưu cục bộ trong `frontend/public/images/`; thông tin tác giả và giấy phép nằm trong `ATTRIBUTION.md` cùng thư mục.
 
 ## Ghi chú tiến độ
-Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau. Docker Hub chưa nhận image: bước đăng nhập GitHub Actions hiện thất bại vì chưa có thông tin xác thực hợp lệ cho namespace `237212doanquoctien`.
+Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau. Hai image `237212doanquoctien/backend:latest` và `237212doanquoctien/frontend:latest` đã có trên Docker Hub. GitHub Actions hiện vẫn dừng ở bước đăng nhập Docker Hub; để tự động cập nhật image cho các commit sau, cần cấu hình `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN` trong repository secrets.
