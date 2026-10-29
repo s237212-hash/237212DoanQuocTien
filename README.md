@@ -18,6 +18,7 @@ backend/                 Express API, schema và dữ liệu mẫu
 frontend/                React + Vite
   src/main.jsx
   src/style.css
+  public/images/         Ảnh món ăn và thông tin giấy phép/ghi công
   Dockerfile
   nginx.conf
 docker-compose.yml       Chạy cả hai ứng dụng cục bộ
@@ -93,6 +94,8 @@ Kiểm tra API: `https://two37212doanquoctien.onrender.com/health`. Frontend: `h
 - Render frontend: `https://web-237212.onrender.com` (đã triển khai; hiển thị ba món mẫu từ Atlas).
 - Render API: `https://two37212doanquoctien.onrender.com`.
 - MongoDB Atlas database: `237212DoanQuocTien`, collection `foods`.
+
+Ảnh món ăn được lưu cục bộ trong `frontend/public/images/`; thông tin tác giả và giấy phép nằm trong `ATTRIBUTION.md` cùng thư mục.
 
 ## Ghi chú tiến độ
 Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau. Docker Hub chưa nhận image: bước đăng nhập GitHub Actions hiện thất bại vì chưa có thông tin xác thực hợp lệ cho namespace `237212doanquoctien`.
