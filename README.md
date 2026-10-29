@@ -79,7 +79,7 @@ docker run --rm -p 8080:80 237212doanquoctien/frontend
 
 ### Tự động build và push qua GitHub Actions
 
-Workflow `.github/workflows/docker-publish.yml` build và push cả hai image khi có commit lên `main`. Trong Settings → Secrets and variables → Actions, tạo secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN` (access token Docker Hub). Không dùng mật khẩu Docker Hub thường hoặc đưa token vào file.
+Workflow `.github/workflows/docker-publish.yml` build và push cả hai image khi có commit lên `main`. Trong Settings → Secrets and variables → Actions, cần secrets `DOCKERHUB_USERNAME=237212doanquoctien` và `DOCKERHUB_TOKEN` là Docker Hub access token có quyền ghi. Nếu thiếu hoặc sai token, bước đăng nhập thất bại và image không được push. Không dùng mật khẩu Docker Hub thường hoặc đưa token vào file.
 
 ## Triển khai Render
 Backend Render hiện có URL `https://two37212doanquoctien.onrender.com`. Frontend `web-237212` dùng biến `VITE_API_URL` trỏ trực tiếp tới API này. Giữ bí mật `MONGODB_URI` trong Environment của dịch vụ backend; không đưa URI vào repo.
@@ -95,4 +95,4 @@ Kiểm tra API: `https://two37212doanquoctien.onrender.com/health`. Frontend: `h
 - MongoDB Atlas database: `237212DoanQuocTien`, collection `foods`.
 
 ## Ghi chú tiến độ
-Workflow Docker Hub cần secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN`. Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau.
+Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau. Docker Hub chưa nhận image: bước đăng nhập GitHub Actions hiện thất bại vì chưa có thông tin xác thực hợp lệ cho namespace `237212doanquoctien`.
