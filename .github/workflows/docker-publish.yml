@@ -28,5 +28,5 @@ jobs:
           context: ./frontend
           push: true
           build-args: |
-            VITE_API_URL=${{ vars.VITE_API_URL || 'https://api-237212.onrender.com' }}
+            VITE_API_URL=${{ vars.VITE_API_URL || 'https://two37212doanquoctien.onrender.com' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest

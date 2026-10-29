@@ -4,7 +4,7 @@ projects:
       - name: production
         services:
           - type: web
-            name: api-237212
+            name: 237212doanquoctien
             runtime: node
             plan: free
             rootDir: backend
@@ -24,4 +24,4 @@ projects:
             staticPublishPath: ./dist
             envVars:
               - key: VITE_API_URL
-                value: https://api-237212.onrender.com
+                value: https://two37212doanquoctien.onrender.com

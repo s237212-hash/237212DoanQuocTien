@@ -38,7 +38,7 @@ Chuỗi kết nối Atlas cần chỉ định database `237212DoanQuocTien` (URI
 Yêu cầu Node.js 20 trở lên và MongoDB Atlas URI đã cấu hình.
 1. Trong `backend`, chạy `npm install`, sau đó `npm run seed` để thêm ba món mẫu (chạy seed nhiều lần không tạo trùng).
 2. Chạy backend bằng `npm run dev` (mặc định `http://localhost:5000`).
-3. Sao chép `frontend/.env.example` thành `frontend/.env`; mặc định `VITE_API_URL=http://localhost:5000`.
+3. Sao chép `frontend/.env.example` thành `frontend/.env`; khi chạy local, đặt `VITE_API_URL=http://localhost:5000`.
 4. Trong `frontend`, chạy `npm install` rồi `npm run dev`; mở `http://localhost:5173`.
 
 ## API
@@ -72,31 +72,27 @@ Giao diện ở `http://localhost:8080`, API ở `http://localhost:5000`. Hoặc
 ```sh
 docker build -t 237212doanquoctien/backend ./backend
 docker run --rm -p 5000:5000 -e MONGODB_URI="<uri>" -e CLIENT_ORIGIN="http://localhost:8080" 237212doanquoctien/backend
-docker build --build-arg VITE_API_URL="https://api-237212.onrender.com" -t 237212doanquoctien/frontend ./frontend
+docker build --build-arg VITE_API_URL="https://two37212doanquoctien.onrender.com" -t 237212doanquoctien/frontend ./frontend
 docker run --rm -p 8080:80 237212doanquoctien/frontend
 ```
 Đăng nhập Docker Hub trên máy của bạn rồi push hai image bằng `docker push 237212doanquoctien/backend` và `docker push 237212doanquoctien/frontend`. Cần tài khoản Docker Hub `237212doanquoctien` hoặc đổi namespace thành tài khoản thực tế của bạn.
 
 ### Tự động build và push qua GitHub Actions
 
-Workflow `.github/workflows/docker-publish.yml` build và push cả hai image khi có commit lên `main`. Trong Settings → Secrets and variables → Actions, tạo secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN` (access token Docker Hub), cùng variable `VITE_API_URL` trỏ đến API Render. Nếu không khai báo variable, workflow dùng URL API dự kiến ở trên. Không dùng mật khẩu Docker Hub thường hoặc đưa token vào file.
+Workflow `.github/workflows/docker-publish.yml` build và push cả hai image khi có commit lên `main`. Trong Settings → Secrets and variables → Actions, tạo secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN` (access token Docker Hub). Không dùng mật khẩu Docker Hub thường hoặc đưa token vào file.
 
 ## Triển khai Render
-`render.yaml` mô tả backend Node và frontend static. Khi tạo Blueprint:
-1. Backend: đặt `MONGODB_URI` thành secret trong Render; đặt `CLIENT_ORIGIN` thành URL frontend HTTPS.
-2. Frontend: đặt `VITE_API_URL` thành URL backend HTTPS, ví dụ `https://api-237212.onrender.com`.
-3. Deploy lại frontend sau khi đổi biến `VITE_API_URL` (Vite đưa giá trị vào bản build).
-4. Kiểm tra `https://<backend>/health`, rồi thử CRUD và tìm kiếm từ URL frontend.
+Backend Render hiện có URL `https://two37212doanquoctien.onrender.com`. Frontend `web-237212` dùng biến `VITE_API_URL` trỏ trực tiếp tới API này. Giữ bí mật `MONGODB_URI` trong Environment của dịch vụ backend; không đưa URI vào repo.
 
-URL dự kiến theo thông tin bài nộp, chưa được xác minh: `https://web-237212.onrender.com` và `https://api-237212.onrender.com`.
+Kiểm tra API: `https://two37212doanquoctien.onrender.com/health`. Frontend: `https://web-237212.onrender.com`.
 
 ## Tài nguyên bài nộp
-- GitHub: `https://github.com/s237212-hash/237212DoanQuocTien` (repo cần được tạo dưới tài khoản GitHub này).
+- GitHub: `https://github.com/s237212-hash/237212DoanQuocTien`.
 - Docker Hub backend: `https://hub.docker.com/r/237212doanquoctien/backend`.
 - Docker Hub frontend: `https://hub.docker.com/r/237212doanquoctien/frontend`.
-- Render frontend: `https://web-237212.onrender.com` (chưa xác minh).
-- Render API: `https://api-237212.onrender.com` (chưa xác minh).
+- Render frontend: `https://web-237212.onrender.com` (đã triển khai; hiển thị ba món mẫu từ Atlas).
+- Render API: `https://two37212doanquoctien.onrender.com`.
 - MongoDB Atlas database: `237212DoanQuocTien`, collection `foods`.
 
 ## Ghi chú tiến độ
-Mã nguồn và cấu hình triển khai đã được chuẩn bị. Để ứng dụng chạy trên cloud cần URI/credential MongoDB Atlas trong secret settings; Render cần deploy và cấp URL; Docker Hub cần đăng nhập bằng tài khoản namespace đúng. Các URL ở trên là thông tin dự kiến do chủ bài cung cấp, không có nghĩa là dịch vụ đã được tạo hoặc kiểm tra.
+Workflow Docker Hub cần secrets `DOCKERHUB_USERNAME` và `DOCKERHUB_TOKEN`. Ba món mẫu đã được thêm vào Atlas; giao diện và API Render đã được kiểm tra cùng nhau.
